@@ -1,6 +1,9 @@
 
 from django.http import HttpResponse
-from django.shortcuts import render # Initial Code 
+from django.shortcuts import render
 
-def hello(request):
-    return HttpResponse("<h1>Hello Django!</h1>")
+def create_account(request):
+    return render(request, "litreview_app/create_account.html")
+    
+def login(request):
+    return render(request, "litreview_app/login.html")
