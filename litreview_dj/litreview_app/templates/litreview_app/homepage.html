@@ -1,0 +1,52 @@
+{% load static %} 
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>LITReview</title>
+        <link rel="stylesheet" href="{% static "litreview_app/styles.css" %}" />
+    </head>
+
+    <header>
+        <h1>LITReview</h1>
+    </header>
+
+    <body>
+
+    <nav>
+
+        <p>
+        <div class="login-form">
+            <form action="login.php" method="post">
+              <div class="form-row">
+                <label>Nom d'utilisateur:</label>
+                <input type="text" name="username" />
+              </div>
+              <div class="form-row">
+                <label>Mot de passe:</label>
+                <input type="password" name="password" />
+              </div>
+              <input type="submit" value="Se connecter" />
+            </form>
+          </div>
+        </p>
+        
+    </nav>
+
+    </body>
+
+    <footer>
+    </footer>
+
+</html>
+
+<!-- Ressources base 
+<h1>Connectez-vous</h1>
+        <button>Cliquez ici</button>
+        <input type="text" />
+
+        <textarea rows="4" cols="50">
+            Votre texte ici
+        </textarea>
+    -->

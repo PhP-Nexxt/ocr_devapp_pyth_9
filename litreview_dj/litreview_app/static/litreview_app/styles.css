@@ -1,48 +1,54 @@
 /* test */
 
+html {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: white;
+}
+
+header {
+  background-color: rgb(168, 156, 195);
+  color: black;
+  width: 100%;
+  height: 40px;
+  font-size: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
 body { 
     width: 800px;
     margin: auto;
     height: 100vh;
     display: grid;
     place-items: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: hwb(253 82% 9%)
 }
 
-header {
-    background-color: cadetblue;
-    color: white;
-    width: 100%;
-    height: 150px;
-    font-size: 30px;
-}
+p {
+  align-items: right;
 
-header nav {
-    height: inherit;
-    vertical-align: middle;
-    display: table-cell;
 }
-
-header nav li {
-    margin-right: 30px;
-}
-
-header a {
-    color: white;
-    text-decoration: none;
-    margin-left: 30px;
-}
-
 
 
 /*
-.video-play button {
-    background-color: red;
-    color: white;
-    font-size: 40px;
-    border-radius: 20px;
-    padding: 5px 30px 5px 30px;
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+*/
+/*
+.form-row {
+  margin-right:ß
+  display: flex;
+  justify-content: space-between;
+}
 
+label {
+  width: 100px;
+  font-size: 8
+}
+
+input {
+  width: 200px;
 }
 */

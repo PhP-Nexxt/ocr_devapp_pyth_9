@@ -20,5 +20,5 @@ from litreview_app import views
 urlpatterns = [
     path("admin/", admin.site.urls), # Superadmin acces (gui crud)
     path("create_account/", views.create_account), # page of sign up
-    path("login", views.login), # page of login
+    path("homepage/", views.homepage), # page of login
 ]
