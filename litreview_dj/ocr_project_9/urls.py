@@ -23,3 +23,4 @@ urlpatterns = [
     path("admin/", admin.site.urls), # Superadmin acces (gui crud)
     path('litreview_app/', include('litreview_app.urls')), #Declaration de creation d'une page d'url
 ]
+
