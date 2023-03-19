@@ -1,23 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
+<title>{% block title %}Se connecter{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
 
-<html>
-
-<head>
-    <title>{% block title %}{% endblock %}</title>
-    <link href="{% static "css/base.css" %}" rel="stylesheet">
-</head>
-
-  <body>
-    <div id="header">
-      <span class="logo">Bookmarks</span>
-    </div>
-    <div id="content">
-      {% block content %}
-      {% endblock %}
-
-      {% extends "base.html" %}
-      {% block title %}Log-in{% endblock %}
       {% block content %}
         <h1>Log-in</h1>
         <p>Please, use the following form to log-in:</p>
@@ -28,11 +12,6 @@
         </form>
       {% endblock %}
       
-
-    </div>
-
-  </body>
-  </html>
 
 
 
