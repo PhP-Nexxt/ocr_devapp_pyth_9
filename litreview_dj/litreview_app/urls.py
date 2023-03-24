@@ -5,10 +5,12 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # path("create_account/", views.create_account, name='create_account'), # page of sign up
-    # path("homepage/", views.homepage, name='homepage'),# page of login\    
-    path('login/', views.user_login, name='login'), #Ajout Livre
-    # path("feed/", views.feed, name='feed') # Page de flux d'actualité
+    
+    path('login/', views.user_login, name='login'), #Page de connection
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('register/', views.user_register, name='user_register'),
     ]
             
             

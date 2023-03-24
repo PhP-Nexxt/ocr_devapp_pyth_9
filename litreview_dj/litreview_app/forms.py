@@ -16,3 +16,4 @@ class SignupForm(UserCreationForm): #Ici on importe le formulaire de creation de
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+

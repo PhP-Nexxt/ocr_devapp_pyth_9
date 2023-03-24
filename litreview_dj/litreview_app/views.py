@@ -8,13 +8,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout 
 from .forms import LoginForm
+from django.contrib.auth.decorators import login_required
 
-"""
-def homepage(request):
-    return render(request, "litreview_app/homepage.html")
-"""
 
-#Ajout du livre
+
+#Formulaire de connection
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -26,7 +24,9 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    return render(request, 'litreviewapp/dashboard.html')  #Redirige vers la vue associée à l'URL 'dashboard'
+                    # return HttpResponse('Authenticated successfully'), login_required() 
+
                 else:
                     return HttpResponse('Disabled account')
             else:
@@ -34,37 +34,23 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'litreview_app/login.html', {'form': form})
+   
+   
+@login_required #page 297 to 299
+def dashboard(request):
+    return render(request,'litreview_app/dashboard.html',{'section': 'dashboard'})
  
-
-
-"""
-#fonction Creation compte et redirection vers la page login
-def create_account(request):
-    form = SignupForm()
+# Formulaire de création de compte
+def user_register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # Connecter l'utilisateur après l'inscription
             login(request, user)
-            return redirect(settings.LOGIN_REDIRECT_URL)
-
-    return render(request, 'litreview_app/create_account.html', {'form': form})
-
-    
-
-def login(username, password): # Pour next week creer la fonction login et rediriger l'utilisateur vers le feed
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        return True 
-        #return HttpResponse('litreview_app/feed')
+            return render(request, 'litreview_app/dashboard.html')  # Redirige vers la vue associée à l'URL 'dashboard'
+        else:
+            return HttpResponse('Registration failed')
     else:
-        return False
-    
-
-# Puis rediriger sur le flux (reprendre les etape et voir docuemntation Django pour login et redirection)
-    
-    
-def feed(request):
-    return render(request, "litreview_app/feed.html"
-"""
-
+        form = UserCreationForm()
+    return render(request, 'litreview_app/register.html', {'form': form})
