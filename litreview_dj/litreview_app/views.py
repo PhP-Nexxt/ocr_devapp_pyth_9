@@ -24,7 +24,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return render(request, 'litreviewapp/dashboard.html')  #Redirige vers la vue associée à l'URL 'dashboard'
+                    return render(request, 'litreview_app/dashboard.html')  #Redirige vers la vue associée à l'URL 'dashboard'
                     # return HttpResponse('Authenticated successfully'), login_required() 
 
                 else:
@@ -54,3 +54,7 @@ def user_register(request):
     else:
         form = UserCreationForm()
     return render(request, 'litreview_app/register.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('litreview_app/login.html')

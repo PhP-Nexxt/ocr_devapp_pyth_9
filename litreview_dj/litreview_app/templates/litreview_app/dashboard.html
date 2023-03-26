@@ -5,6 +5,10 @@
       {% block content %}
         <h1>Dashboard</h1>
         <p>Bienvenue sur votre flux d'actualité:</p>
+
+        <div class="menu-item px-5">
+            <a href="{% url 'logout' %}" class="#">Se déconnecter</a>							
+        </div>
         
       {% endblock %}
       
