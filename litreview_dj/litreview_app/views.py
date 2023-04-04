@@ -34,9 +34,12 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'litreview_app/login.html', {'form': form})
+
+
+    
    
    
-@login_required #page 297 to 299
+@login_required #Decorateur secure connexion 
 def dashboard(request):
     return render(request,'litreview_app/dashboard.html',{'section': 'dashboard'})
  
