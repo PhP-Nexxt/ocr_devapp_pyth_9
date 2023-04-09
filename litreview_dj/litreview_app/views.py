@@ -9,6 +9,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout 
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Ticket
+from .forms import TicketForm
 
 
 
@@ -26,7 +29,6 @@ def user_login(request):
                     login(request, user)
                     return render(request, 'litreview_app/dashboard.html')  #Redirige vers la vue associée à l'URL 'dashboard'
                     # return HttpResponse('Authenticated successfully'), login_required() 
-
                 else:
                     return HttpResponse('Disabled account')
             else:
@@ -35,13 +37,32 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'litreview_app/login.html', {'form': form})
 
-
-    
-   
    
 @login_required #Decorateur secure connexion 
 def dashboard(request):
-    return render(request,'litreview_app/dashboard.html',{'section': 'dashboard'})
+    tickets = Ticket.objects.all().order_by('-id') # Récupérer les tickets et les trier par ordre décroissant d'ID
+    
+    #return render(request,'litreview_app/dashboard.html',{'section': 'dashboard'}) #affichage dashboard
+    return render(request,'litreview_app/dashboard.html', {'section': 'dashboard', 'tickets': tickets}) #affichage dashboard = des tickets
+
+
+@login_required 
+def create_ticket(request): #création du ticket dans le dashboard
+    if request.method == 'POST':
+        form = TicketForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_ticket = form.save(commit=False)
+            new_ticket.user = request.user
+            new_ticket.save()
+            messages.success(request, 'Ticket créé avec succès.')
+            return redirect('dashboard')
+    else:
+        form = TicketForm()
+    return render(request, 'litreview_app/create_ticket.html', {'form': form})
+
+    
+
+
  
 # Formulaire de création de compte
 def user_register(request):
@@ -61,3 +82,6 @@ def user_register(request):
 def logout_view(request):
     logout(request)
     return redirect('litreview_app/login.html')
+
+
+

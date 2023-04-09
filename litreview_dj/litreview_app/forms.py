@@ -3,6 +3,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from .models import Ticket
 
 
 """
@@ -16,4 +17,9 @@ class SignupForm(UserCreationForm): #Ici on importe le formulaire de creation de
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+    
 
+class TicketForm(forms.ModelForm): #Formulaire creation ticket
+    class Meta:
+        model = Ticket
+        fields = ('title', 'description', 'image',)

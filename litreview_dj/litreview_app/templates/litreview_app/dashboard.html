@@ -6,9 +6,26 @@
         <h1>Dashboard</h1>
         <p>Bienvenue sur votre flux d'actualité:</p>
 
-        <div class="menu-item px-5">
-            <a href="{% url 'logout' %}" class="#">Se déconnecter</a>							
-        </div>
+          <h2>Tableau de bord</h2>
+
+          <div class="tickets">
+            {% for ticket in tickets %}
+              <div class="ticket">
+                <h3>{{ ticket.title }}</h3>
+                  <p>{{ ticket.description }}</p>
+                  <p>Créé par : {{ ticket.user }}</p>
+                  {% if ticket.image %}
+                  <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" style="max-width: 200px; max-height: 200px;">
+                {% endif %}
+              </div>
+            {% empty %}
+              <p>Aucun ticket trouvé.</p>
+            {% endfor %}
+          </div>
+
+          <div class="menu-item px-5">
+              <a href="{% url 'logout' %}" class="#">Se déconnecter</a>							
+          </div>
         
       {% endblock %}
       
