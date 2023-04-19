@@ -18,9 +18,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from litreview_app import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path("admin/", admin.site.urls), # Superadmin acces (gui crud)
     path('litreview_app/', include('litreview_app.urls')), #Declaration de creation d'une page d'url
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #association des fichiers media
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #association avec le fichier syles.css

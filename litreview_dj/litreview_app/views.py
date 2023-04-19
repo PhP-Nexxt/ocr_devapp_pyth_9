@@ -27,8 +27,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return render(request, 'litreview_app/dashboard.html')  #Redirige vers la vue associée à l'URL 'dashboard'
-                    # return HttpResponse('Authenticated successfully'), login_required() 
+                    return redirect('dashboard')  # Redirige vers la vue associée à l'URL 'dashboard'
                 else:
                     return HttpResponse('Disabled account')
             else:
@@ -46,7 +45,7 @@ def dashboard(request):
     return render(request,'litreview_app/dashboard.html', {'section': 'dashboard', 'tickets': tickets}) #affichage dashboard = des tickets
 
 
-@login_required 
+@login_required
 def create_ticket(request): #création du ticket dans le dashboard
     if request.method == 'POST':
         form = TicketForm(request.POST, request.FILES)
@@ -72,7 +71,8 @@ def user_register(request):
             user = form.save()
             # Connecter l'utilisateur après l'inscription
             login(request, user)
-            return render(request, 'litreview_app/dashboard.html')  # Redirige vers la vue associée à l'URL 'dashboard'
+            return redirect('dashboard')
+            #return render(request, 'litreview_app/dashboard.html')  # Redirige vers la vue associée à l'URL 'dashboard'
         else:
             return HttpResponse('Registration failed')
     else:
