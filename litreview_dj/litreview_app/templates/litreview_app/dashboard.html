@@ -2,7 +2,7 @@
 {% load static %}
 <title>{% block title %}Dashboard{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
 
-      {% block content %}
+      {% block content %} <!--Ajout de l'html de la page entre block content et endblock-->
         <h1>Dashboard</h1>
         <p>Bienvenue sur votre flux d'actualité:</p>
 
@@ -24,7 +24,7 @@
           </div>
 
           <div class="menu-item px-5">
-              <a href="{% url 'logout' %}" class="#">Se déconnecter</a>							
+              <a href="{% url 'logout' %}" class="#">Se déconnecter</a>	<!--Toutes les redirections se font sur ce format-->						
           </div>
         
       {% endblock %}

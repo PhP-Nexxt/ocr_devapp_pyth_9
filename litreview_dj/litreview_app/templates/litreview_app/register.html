@@ -12,10 +12,15 @@
     {{ form.as_p }}
     <button type="submit">S'inscrire</button>
   </form>
-
-  <!-- Ajout du bouton pour accéder à la page d'inscription -->
-  <p>
-    <a href="{% url 'register' %}" class="btn btn-primary">Créer un compte</a>
-  </p>
-
+  
+  {% if form.errors %} <!--Ajout code pour voir d'ou viens l'erreur de creation de compte-->
+  <ul class="errors">
+    {% for field in form %}
+      {% for error in field.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %}
+  
 {% endblock %}

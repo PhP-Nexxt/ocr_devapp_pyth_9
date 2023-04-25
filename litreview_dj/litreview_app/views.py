@@ -11,12 +11,13 @@ from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Ticket
-from .forms import TicketForm
+from .forms import TicketForm, SignupForm
 
 
 
-#Formulaire de connection
-def user_login(request):
+
+
+def user_login(request): #Formulaire de connection
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -40,8 +41,6 @@ def user_login(request):
 @login_required #Decorateur secure connexion 
 def dashboard(request):
     tickets = Ticket.objects.all().order_by('-id') # Récupérer les tickets et les trier par ordre décroissant d'ID
-    
-    #return render(request,'litreview_app/dashboard.html',{'section': 'dashboard'}) #affichage dashboard
     return render(request,'litreview_app/dashboard.html', {'section': 'dashboard', 'tickets': tickets}) #affichage dashboard = des tickets
 
 
@@ -60,28 +59,27 @@ def create_ticket(request): #création du ticket dans le dashboard
     return render(request, 'litreview_app/create_ticket.html', {'form': form})
 
     
-
-
- 
-# Formulaire de création de compte
-def user_register(request):
+def user_register(request): # Formulaire de création de compte
+    form = SignupForm()
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             # Connecter l'utilisateur après l'inscription
             login(request, user)
-            return redirect('dashboard')
-            #return render(request, 'litreview_app/dashboard.html')  # Redirige vers la vue associée à l'URL 'dashboard'
+            return redirect('dashboard') # Redirige vers la vue associée à l'URL 'dashboard'
         else:
             return HttpResponse('Registration failed')
     else:
         form = UserCreationForm()
     return render(request, 'litreview_app/register.html', {'form': form})
 
-def logout_view(request):
+def logout_view(request): 
     logout(request)
     return redirect('litreview_app/login.html')
+
+#Fonction pour ajout de ticket 
+#Fonction pour ajout de review
 
 
 
