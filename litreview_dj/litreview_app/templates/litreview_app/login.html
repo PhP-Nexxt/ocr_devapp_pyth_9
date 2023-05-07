@@ -1,23 +1,28 @@
-<!--{% extends "base.html" %} Pas affichage avant connexion-->
+<!--Pas heritage de  base.html pour les pages non connectées-->
 
+{% load static %}
+<!DOCTYPE html>
 
-      {% load static %}
-      <!DOCTYPE html>
+<html>
 
-      <html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "litreview_app/styles.css" %}" rel="stylesheet">
 
-      <head>
-        <title>{% block title %}Se connecter{% endblock %}</title> <!--ccc-->
-        <link href="{% static "litreview_app/styles.css" %}" rel="stylesheet">
+</head>
 
-      </head>
+  <body>
+    <div id="header">
+      <span class="logo">Litreview</span>
 
-        <body>
-          <div id="header">
-            <span class="logo">Litreview</span>
-          </div>
+      
 
-          <h1>Connectez-vous</h1>
+    </div>
+    <div id="content">
+
+      {% block content %}
+        
+        <h1>Connectez-vous</h1>
 
         <form method="post">
           {{ form.as_p }}
@@ -25,16 +30,21 @@
           <p><input type="submit" value="Log in"></p>
         </form>
 
-        
-        
+
+
         <!--Redirections vers creer un compte -->
         <div class="menu-item px-5">
           <a href="{% url 'register' %}" class="button">Inscrivez-vous maintenant</a>							
         </div>
+      {% endblock %}
+    </div>
 
-        </body>
-        </html>
+    
+
+  </body>
+  </html>
   
+
   
       
         

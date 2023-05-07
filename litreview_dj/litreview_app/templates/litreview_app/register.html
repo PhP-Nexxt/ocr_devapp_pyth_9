@@ -1,31 +1,57 @@
-{% extends "base.html" %}
+<!--Pas heritage de  base.html pour les pages non connecté-->
 
 {% load static %}
-<title>
-  {% block title %}Creer votre compte{% endblock %}
-</title> <!--Utiliser block title et block content pour le reste des pages-->
+<!DOCTYPE html>
 
-{% block content %}
-  <h2>Créer un compte</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">S'inscrire</button>
-  </form>
-  
-  {% if form.errors %} <!--Ajout code pour voir d'ou viens l'erreur de creation de compte-->
-  <ul class="errors">
-    {% for field in form %}
-      {% for error in field.errors %}
-        <li>{{ error }}</li>
-      {% endfor %}
-    {% endfor %}
-  </ul>
-{% endif %}
+<html>
 
-<!-- Retour vers login -->
-<div class="menu-item px-5"> 
-  <a href="{% url 'login' %}" class="button">Annuler</a>
-</div>
-  
-{% endblock %}
+<head>
+    <title>
+      {% block title %}Creer votre compte{% endblock %}</title>
+    <link href="{% static "litreview_app/styles.css" %}" rel="stylesheet">
+
+</head>
+
+  <body>
+    <div id="header">
+      <span class="logo">Litreview</span>
+
+      <!--Deconnexion header Reste ajout d'une condition et container + Mise en forme-->
+
+    </div>
+    <div id="content">
+
+      {% block content %}
+        
+          <h2>Créer un compte</h2>
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">S'inscrire</button>
+          </form>
+          
+          {% if form.errors %} <!--Ajout code pour voir d'ou viens l'erreur de creation de compte-->
+          <ul class="errors">
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <!-- Retour vers login -->
+        <div class="menu-item px-5"> 
+          <a href="{% url 'login' %}" class="button">Annuler</a>
+        </div>
+          
+      {% endblock %}
+    </div>
+
+    
+
+  </body>
+  </html>
+
+
+
