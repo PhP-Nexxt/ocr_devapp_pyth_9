@@ -4,6 +4,13 @@
 
       {% block content %} <!--Ajout de l'html de la page entre block content et endblock-->
         <h1>Dashboard</h1>
+        
+      
+
+        <div class="menu-item px-5">
+          <a href="{% url 'create_ticket' %}" class="button">Demander une critique(Ticket)</a>
+        </div>
+
         <p>Bienvenue sur votre flux d'actualité:</p>
 
           <h2>Tableau de bord</h2>
@@ -11,12 +18,16 @@
           <div class="tickets">
             {% for ticket in tickets %}
               <div class="ticket">
-                <h3>{{ ticket.title }}</h3>
+                <div class="ticket-header">
+                  <h3>{{ ticket.title }}</h3>
+                  <p class="created-by">Créé par : {{ ticket.user }}</p>
+                </div>
+                <div class="ticket-content">
                   <p>{{ ticket.description }}</p>
-                  <p>Créé par : {{ ticket.user }}</p>
                   {% if ticket.image %}
-                  <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" style="max-width: 200px; max-height: 200px;">
-                {% endif %}
+                    <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" class="ticket-image">
+                  {% endif %}
+                </div>
               </div>
             {% empty %}
               <p>Aucun ticket trouvé.</p>
@@ -24,9 +35,9 @@
           </div>
 
           <div class="menu-item px-5">
-              <a href="{% url 'logout' %}" class="#">Se déconnecter</a>	<!--Toutes les redirections se font sur ce format-->						
+              <a href="{% url 'logout' %}" class="button">Se déconnecter</a>	<!--Toutes les redirections se font sur ce format-->						
           </div>
-        
+
       {% endblock %}
       
 

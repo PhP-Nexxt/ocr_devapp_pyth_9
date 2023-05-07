@@ -79,6 +79,7 @@ def logout_view(request):
     return redirect('litreview_app/login.html')
 
 #Fonction pour ajout de ticket 
+
 #Fonction pour ajout de review
 
 

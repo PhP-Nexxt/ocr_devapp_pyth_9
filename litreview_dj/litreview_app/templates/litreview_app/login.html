@@ -1,9 +1,23 @@
-{% extends "base.html" %}
-{% load static %}
-<title>{% block title %}Se connecter{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
+<!--{% extends "base.html" %} Pas affichage avant connexion-->
 
-      {% block content %}
-        <h1>Connectez-vous</h1>
+
+      {% load static %}
+      <!DOCTYPE html>
+
+      <html>
+
+      <head>
+        <title>{% block title %}Se connecter{% endblock %}</title> <!--ccc-->
+        <link href="{% static "litreview_app/styles.css" %}" rel="stylesheet">
+
+      </head>
+
+        <body>
+          <div id="header">
+            <span class="logo">Litreview</span>
+          </div>
+
+          <h1>Connectez-vous</h1>
 
         <form method="post">
           {{ form.as_p }}
@@ -11,18 +25,20 @@
           <p><input type="submit" value="Log in"></p>
         </form>
 
-       
-
-      {% endblock %}
-
-
         
-       <!-- 
-          Ajout du bouton pour accéder à la page d'inscription
-        <p>
-        <a href="{% url 'register' %}" class="btn btn-primary">Créer un compte</a>
-        </p>
-        -->
+        
+        <!--Redirections vers creer un compte -->
+        <div class="menu-item px-5">
+          <a href="{% url 'register' %}" class="button">Inscrivez-vous maintenant</a>							
+        </div>
+
+        </body>
+        </html>
+  
+  
+      
+        
+      
 
 
 

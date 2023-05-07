@@ -6,16 +6,27 @@
 <head>
     <title>{% block title %}{% endblock %}</title>
     <link href="{% static "litreview_app/styles.css" %}" rel="stylesheet">
+
 </head>
 
   <body>
     <div id="header">
       <span class="logo">Litreview</span>
+
+      <!--Deconnexion header Reste ajout d'une condition et container + Mise en forme-->
+      <div class="menu-item px-5">
+        <a href="{% url 'logout' %}" class="button">Se déconnecter</a>							
+      </div>
+
     </div>
     <div id="content">
+
       {% block content %}
+
       {% endblock %}
     </div>
+
+    
 
   </body>
   </html>
