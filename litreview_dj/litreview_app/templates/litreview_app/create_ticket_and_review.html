@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+<title>{% block title %}Create Ticket{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
+
+      {% block content %}
+      <h2>Créer un ticket + une critique </h2>
+
+
+
+
+
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Create a Ticket</h2>
+        {{ ticket_form.as_p }}
+        <h2>Create a Review for this Ticket</h2>
+        {{ review_form.as_p }}
+        <button type="submit">Create Ticket and Review</button>
+    </form>
+        
+      
+
+        
+       <!-- Retour vers dashboard -->
+       <div class="menu-item px-5"> 
+        <a href="{% url 'dashboard' %}" class="button">Annuler</a>
+      </div>
+
+      {% endblock %}
+  

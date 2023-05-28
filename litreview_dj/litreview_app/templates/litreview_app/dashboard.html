@@ -7,33 +7,47 @@
         
       
 
-        <div class="menu-item px-5">
-          <a href="{% url 'create_ticket' %}" class="button">Demander une critique(Ticket)</a>
-        </div>
+       
+          <!-- Affichage Critique + Ticket -->
 
-        <p>Bienvenue sur votre flux d'actualité:</p>
-
-          <h2>Tableau de bord</h2>
-
-          <div class="tickets">
-            {% for ticket in tickets %}
-              <div class="ticket">
-                <div class="ticket-header">
-                  <h3>{{ ticket.title }}</h3>
-                  <p class="created-by">Créé par : {{ ticket.user }}</p>
+          <div class="reviews">
+            {% for review in reviews %}
+                <div class="review">
+                    <h3>{{ review.title }}</h3>
+                    <p>{{ review.content }}</p>
+                    <p>Rating: {{ review.rating }}</p>  <!-- Afficher le rating ici -->
+                    
+                    <div class="ticket">
+                        <h4>{{ review.ticket.title }}</h4>
+                        <p>{{ review.ticket.description }}</p>
+                        {% if review.ticket.image %}
+                            <img src="{{ review.ticket.image.url }}" alt="{{ review.ticket.title }}" class="ticket-image">
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="ticket-content">
-                  <p>{{ ticket.description }}</p>
-                  {% if ticket.image %}
-                    <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" class="ticket-image">
-                  {% endif %}
-                </div>
-              </div>
             {% empty %}
-              <p>Aucun ticket trouvé.</p>
+                <p>Aucune critique trouvée.</p>
             {% endfor %}
           </div>
 
+          <!-- Affichage Ticket -->
+          <div class="tickets">
+            {% for ticket in tickets %}
+                {% if not ticket.review_set.exists %}
+                    <div class="ticket">
+                        <h3>{{ ticket.title }}</h3>
+                        <p>{{ ticket.description }}</p>
+                        {% if ticket.image %}
+                            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" class="ticket-image">
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p>Aucun ticket trouvé.</p>
+            {% endfor %}
+          </div>
+
+          <!-- Bouton de deconnection -->
           <div class="menu-item px-5">
               <a href="{% url 'logout' %}" class="button">Se déconnecter</a>	<!--Toutes les redirections se font sur ce format-->						
           </div>

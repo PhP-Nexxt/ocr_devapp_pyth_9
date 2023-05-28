@@ -320,3 +320,10 @@ img.user-detail {
   .menu-item {
     margin-top: 30px; /* ajustez la valeur selon l'espace souhaité */
   }
+
+  /* css radio button rating */
+  .radio-inline {
+    display: inline-block;
+    padding-right: 10px;
+    margin-bottom: 0;
+  }

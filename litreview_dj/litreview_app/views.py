@@ -11,8 +11,9 @@ from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Ticket
-from .forms import TicketForm, SignupForm
-
+from .forms import TicketForm, SignupForm, ReviewForm
+from .models import UserFollows
+from .models import Review
 
 
 
@@ -38,10 +39,17 @@ def user_login(request): #Formulaire de connection
     return render(request, 'litreview_app/login.html', {'form': form})
 
    
-@login_required #Decorateur secure connexion 
+@login_required
 def dashboard(request):
     tickets = Ticket.objects.all().order_by('-id') # Récupérer les tickets et les trier par ordre décroissant d'ID
-    return render(request,'litreview_app/dashboard.html', {'section': 'dashboard', 'tickets': tickets}) #affichage dashboard = des tickets
+    reviews = Review.objects.all() # récupérer toutes les critiques
+
+    context = {
+        'section': 'dashboard', 
+        'tickets': tickets,
+        'reviews': reviews
+    }
+    return render(request, 'litreview_app/dashboard.html', context) 
 
 
 @login_required
@@ -74,11 +82,55 @@ def user_register(request): # Formulaire de création de compte
         form = UserCreationForm()
     return render(request, 'litreview_app/register.html', {'form': form})
 
+
 def logout_view(request): 
     logout(request)
     return redirect('litreview_app/login.html')
 
-#Fonction pour ajout de ticket 
+
+@login_required #(En cours)création d'une critique pas en reponse a un ticket(cad creation du ticket puis de la critique)
+def create_ticket_and_review(request):
+    if request.method == 'POST':
+        ticket_form = TicketForm(request.POST, request.FILES)
+        review_form = ReviewForm(request.POST, request.FILES)
+        if ticket_form.is_valid() and review_form.is_valid():
+            new_ticket = ticket_form.save(commit=False)
+            new_ticket.user = request.user
+            new_ticket.save()
+
+            new_review = review_form.save(commit=False)
+            new_review.ticket = new_ticket  # Assuming your Review model has a foreign key to Ticket model
+            new_review.user = request.user
+            new_review.save()
+
+            messages.success(request, 'Ticket and review created successfully.')
+            return redirect('dashboard')
+
+    else:
+        ticket_form = TicketForm()
+        review_form = ReviewForm()
+
+    return render(request, 'litreview_app/create_ticket_and_review.html', {'ticket_form': ticket_form, 'review_form': review_form})
+
+
+
+
+
+""" (reprendre apres les critiques)
+@login_required
+def follow_user(request, user_id): #Formulaire de suivi d'autre user 
+    user_to_follow = get_object_or_404(User, id=user_id)
+    follow, created = UserFollows.objects.get_or_create(user=request.user, followed_user=user_to_follow)
+
+    if created:
+        # Utilisateur a commencé à suivre
+        pass
+    else:
+        # Utilisateur suit déjà
+        pass
+
+    return redirect('profile', user_id=user_id)
+"""
 
 #Fonction pour ajout de review
 
