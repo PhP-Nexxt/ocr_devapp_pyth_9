@@ -1,21 +1,22 @@
 # Avec Django la vue recoit les requetes http et renvoie une reponse inteigible par la navigateur, 
 # la vue realise toutes les actions necessaires à la requete et fait appel au model (bd) ou au template (affichage) selon le besoins
 
+from itertools import chain
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout 
-from .forms import LoginForm
+from django.db.models import CharField, Value
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Ticket
 from .forms import TicketForm, SignupForm, ReviewForm
+from .forms import LoginForm
 from .models import UserFollows
 from .models import Review
-
-
+from .utils import get_users_viewable_tickets, get_users_viewable_reviews
 
 
 def user_login(request): #Formulaire de connection
@@ -42,13 +43,23 @@ def user_login(request): #Formulaire de connection
 @login_required
 def dashboard(request):
     tickets = Ticket.objects.all().order_by('-id') # Récupérer les tickets et les trier par ordre décroissant d'ID
-    reviews = Review.objects.all() # récupérer toutes les critiques
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    
+    reviews = get_users_viewable_reviews(request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    
+    # combine and sort the two types of posts
+    posts = sorted(
+        chain(reviews, tickets), 
+        key=lambda post: post.time_created, 
+        reverse=True
+    )
 
     context = {
         'section': 'dashboard', 
-        'tickets': tickets,
-        'reviews': reviews
+        'posts' : posts,
     }
+    
     return render(request, 'litreview_app/dashboard.html', context) 
 
 

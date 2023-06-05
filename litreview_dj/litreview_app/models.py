@@ -18,6 +18,7 @@ class Ticket(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=2048, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    time_created = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True, upload_to='tickets/') #Ajout du repertoire pour stocker les images 
     #(indique que les images seront stockées dans un sous-répertoire nommé "tickets" à l'intérieur du répertoire MEDIA_ROOT)
 

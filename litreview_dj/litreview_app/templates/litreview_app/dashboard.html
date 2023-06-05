@@ -5,47 +5,52 @@
       {% block content %} <!--Ajout de l'html de la page entre block content et endblock-->
         <h1>Dashboard</h1>
         
-      
+            <div class="menu-item px-5"> <!-- Affichage bouton creation ticket -->
+                <a href="{% url 'create_ticket' %}" class="button">Demander une critique (Crea ticket)</a>							
+            </div>
+            
+            <div class="menu-item px-5"> <!-- Affichage bouton creation ticket+critique -->
+                <a href="{% url 'create_ticket_and_review' %}" class="button">Creer une critique (ticket + Critique)</a>							
+            </div>
 
-       
+
+            
+        
+            
           <!-- Affichage Critique + Ticket -->
-
           <div class="reviews">
-            {% for review in reviews %}
-                <div class="review">
-                    <h3>{{ review.title }}</h3>
-                    <p>{{ review.content }}</p>
-                    <p>Rating: {{ review.rating }}</p>  <!-- Afficher le rating ici -->
-                    
-                    <div class="ticket">
-                        <h4>{{ review.ticket.title }}</h4>
-                        <p>{{ review.ticket.description }}</p>
-                        {% if review.ticket.image %}
-                            <img src="{{ review.ticket.image.url }}" alt="{{ review.ticket.title }}" class="ticket-image">
-                        {% endif %}
+            {% for post  in posts %}
+                {% if post.content_type == 'REVIEW' %} <!-- Condition si review > Ticket puis review -->
+                    <div class="review">
+                        <h3>{{ post.headline }}</h3>
+                        <p>{{ post.body }}</p>
+                        <p>Rating: {{ post.rating }}</p>  <!-- Afficher le rating ici -->
+                        
+                        <div class="ticket">
+                            <h4>{{ post.ticket.title }}</h4>
+                            <p>{{ post.ticket.description }}</p>
+                            {% if post.ticket.image %}
+                                <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}" class="ticket-image">
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            {% empty %}
-                <p>Aucune critique trouvée.</p>
-            {% endfor %}
-          </div>
-
-          <!-- Affichage Ticket -->
-          <div class="tickets">
-            {% for ticket in tickets %}
-                {% if not ticket.review_set.exists %}
+                {% elif post.content_type == 'TICKET' %} <!-- Condition si pas review > ticket uniquement -->
                     <div class="ticket">
-                        <h3>{{ ticket.title }}</h3>
-                        <p>{{ ticket.description }}</p>
-                        {% if ticket.image %}
-                            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" class="ticket-image">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.description }}</p>
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="ticket-image">
                         {% endif %}
                     </div>
                 {% endif %}
+
             {% empty %}
-                <p>Aucun ticket trouvé.</p>
+                <p>Aucune critique trouvée</p>
             {% endfor %}
           </div>
+
+          
+          
 
           <!-- Bouton de deconnection -->
           <div class="menu-item px-5">
