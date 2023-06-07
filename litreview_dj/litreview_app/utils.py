@@ -9,5 +9,5 @@ def get_users_viewable_reviews(user):
     return reviews
 
 def get_users_viewable_tickets(user):
-    tickets = Ticket.objects.all() # recuperer les tickets
+    tickets = Ticket.objects.all() # recuperer tous les tickets
     return tickets

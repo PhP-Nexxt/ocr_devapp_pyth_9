@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+<title>{% block title %}Update Ticket{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
+
+      {% block content %}
+      <h2>Créer un ticket</h2>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Créer un ticket</button>
+      </form>
+        
+    
+       <!-- Retour vers dashboard -->
+       <div class="menu-item px-5"> 
+        <a href="{% url 'dashboard' %}" class="button">Annuler</a>
+      </div>
+
+      {% endblock %}
+  

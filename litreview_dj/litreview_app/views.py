@@ -123,7 +123,40 @@ def create_ticket_and_review(request):
 
     return render(request, 'litreview_app/create_ticket_and_review.html', {'ticket_form': ticket_form, 'review_form': review_form})
 
+@login_required
+def posts(request): #mes postes uniquements
+    tickets = Ticket.objects.all().order_by('-id') # Récupérer les tickets et les trier par ordre décroissant d'ID
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    
+    reviews = Review.objects.all()
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    
+    # combine and sort the two types of posts
+    posts = sorted(
+        chain(reviews, tickets), 
+        key=lambda post: post.time_created, 
+        reverse=True
+    )
+    context = {
+        'section': 'dashboard', 
+        'posts' : posts,
+    }
+    return render(request, 'litreview_app/posts.html', context) 
 
+login_required
+def update_ticket(request, ticket_id): #Modification du ticket dashboard
+    ticket = Ticket.objects.get(id=ticket_id) #recuperation du ticket id pour modification
+    if request.method == 'POST':
+        form = TicketForm(request.POST, request.FILES, instance=ticket)
+        if form.is_valid():
+            new_ticket = form.save(commit=False)
+            new_ticket.user = request.user
+            new_ticket.save()
+            messages.success(request, 'Ticket modifié avec succès.')
+            return redirect('dashboard')
+    else:
+        form = TicketForm(instance=ticket) #On passe l'instance correspondant au Ticket à modifier afin de récuperer les informations
+    return render(request, 'litreview_app/update_ticket.html', {'form': form})
 
 
 

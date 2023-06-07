@@ -290,6 +290,7 @@ img.user-detail {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin: 10px;
   }
   
   .ticket-header {
@@ -318,7 +319,7 @@ img.user-detail {
 
   /* css  button */
   .menu-item {
-    margin-top: 30px; /* ajustez la valeur selon l'espace souhaité */
+    margin: 10px; /* ajustez la valeur selon l'espace souhaité */
   }
 
   /* css radio button rating */
@@ -327,3 +328,17 @@ img.user-detail {
     padding-right: 10px;
     margin-bottom: 0;
   }
+
+  .review {
+    border-radius: 10px;
+    border: 3px solid #aaa;
+    margin: 10px;
+    padding: 10px;
+    background: #dcdcdc;
+}
+
+.btn-create {
+    display :flex;
+    margin : 30px;
+
+}

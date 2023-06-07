@@ -3,21 +3,8 @@
 <title>{% block title %}Dashboard{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
 
       {% block content %} <!--Ajout de l'html de la page entre block content et endblock-->
-        <h1>Dashboard</h1>
+        <h1>Posts</h1>
         
-            <div class="btn-create"> <!-- Div container affichage bouton haut Dashboard -->
-                <div class="menu-item px-5"> <!-- Affichage bouton creation ticket -->
-                    <a href="{% url 'create_ticket' %}" class="button">Demander une critique (Crea ticket)</a>							
-                </div>
-                
-                <div class="menu-item px-5"> <!-- Affichage bouton creation ticket+critique -->
-                    <a href="{% url 'create_ticket_and_review' %}" class="button">Creer une critique (ticket + Critique)</a>							
-                </div>
-            </div>
-
-            
-        
-            
           <!-- Affichage Critique + Ticket -->
           <div class="reviews">
             {% for post  in posts %}
@@ -34,6 +21,11 @@
                                 <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}" class="ticket-image">
                             {% endif %}
                         </div>
+
+                        <a href="{% url 'create_ticket' %}" class="button">Modifier la critique</a>
+
+                        <a href="{% url 'create_ticket' %}" class="button">Supprimer la critique</a>
+
                     </div>
                 {% elif post.content_type == 'TICKET' %} <!-- Condition si pas review > ticket uniquement -->
                     <div class="ticket">
@@ -42,6 +34,11 @@
                         {% if post.image %}
                             <img src="{{ post.image.url }}" alt="{{ post.title }}" class="ticket-image">
                         {% endif %}
+                        <!--On recupere l'id de facon dynamique -->
+                        <a href="{% url 'update_ticket' ticket_id=post.id %}" class="button">Modifier le ticket</a>
+
+                        <a href="{% url 'create_ticket' %}" class="button">Supprimer le ticket</a>
+
                     </div>
                 {% endif %}
 
@@ -59,15 +56,3 @@
           </div>
 
       {% endblock %}
-      
-
-
-
-
-
-
-
-
-
-
-

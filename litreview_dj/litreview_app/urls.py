@@ -12,6 +12,8 @@ urlpatterns = [
     path('register/', views.user_register, name='register'),
     path('create_ticket/', views.create_ticket, name='create_ticket'),
     path('create_ticket_and_review/', views.create_ticket_and_review, name='create_ticket_and_review'),
+    path('posts/', views.posts, name='posts'),
+    path('update_ticket/<int:ticket_id>', views.update_ticket, name='update_ticket'),
     ]
             
             
