@@ -28,7 +28,7 @@
                         <p>Rating: {{ post.rating }}</p>  <!-- Afficher le rating ici -->
                         
                         <div class="ticket">
-                            <h4>{{ post.ticket.title }}</h4>
+                            <h4>{{ post.ticket.title }}</h4> <!-- lien entre les models Review et Tickets-->
                             <p>{{ post.ticket.description }}</p>
                             {% if post.ticket.image %}
                                 <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}" class="ticket-image">
@@ -42,6 +42,16 @@
                         {% if post.image %}
                             <img src="{{ post.image.url }}" alt="{{ post.title }}" class="ticket-image">
                         {% endif %}
+                        
+                        <!-- On recupere les informations db via 
+                            le models qui retourne un booleen selon si la critique existe ou pas  -->
+                        {% if not post.review_set.exists %}
+                            <!--Le bouton est supprimé de facon dynamique si une critique existe déja-->
+                            <a href="{% url 'create_review' ticket_id=post.id %}" class="button">Créer une critique</a>
+                        
+                        {% endif %} 
+
+
                     </div>
                 {% endif %}
 

@@ -99,7 +99,7 @@ def logout_view(request):
     return redirect('litreview_app/login.html')
 
 
-@login_required #(En cours)création d'une critique pas en reponse a un ticket(cad creation du ticket puis de la critique)
+@login_required #Création d'une critique pas en reponse a un ticket(cad creation du ticket puis de la critique)
 def create_ticket_and_review(request):
     if request.method == 'POST':
         ticket_form = TicketForm(request.POST, request.FILES)
@@ -157,6 +157,32 @@ def update_ticket(request, ticket_id): #Modification du ticket dashboard
     else:
         form = TicketForm(instance=ticket) #On passe l'instance correspondant au Ticket à modifier afin de récuperer les informations
     return render(request, 'litreview_app/update_ticket.html', {'form': form})
+
+@login_required #Création d'une critique en reponse a un ticket
+def create_review(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id) #Recuperation du ticket id pour ajout de critique
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST, request.FILES)
+        if review_form.is_valid():
+            new_review = review_form.save(commit=False)
+            new_review.ticket = ticket  # Assuming your Review model has a foreign key to Ticket model
+            new_review.user = request.user
+            new_review.save()
+
+            messages.success(request, 'Review created successfully.')
+            return redirect('dashboard')
+
+    else:
+        review_form = ReviewForm()
+    
+    #La clé est ce que je veux utiliser à l'interieur de mon template html 
+    # et la valeur c'est le contenu 
+    context = {
+        'review_form': review_form,
+        'ticket': ticket
+    }
+    return render(request, 'litreview_app/create_review.html', context)
+
 
 
 
