@@ -22,9 +22,9 @@
                             {% endif %}
                         </div>
 
-                        <a href="{% url 'create_ticket' %}" class="button">Modifier la critique</a>
+                        <a href="{% url 'update_review' review_id=post.id %}" class="button">Modifier la critique</a>
 
-                        <a href="{% url 'create_ticket' %}" class="button">Supprimer la critique</a>
+                        <a href="{% url 'delete_review' review_id=post.id %}" class="button">Supprimer la critique</a>
 
                     </div>
                 {% elif post.content_type == 'TICKET' %} <!-- Condition si pas review > ticket uniquement -->
@@ -37,7 +37,7 @@
                         <!--On recupere l'id de facon dynamique -->
                         <a href="{% url 'update_ticket' ticket_id=post.id %}" class="button">Modifier le ticket</a>
 
-                        <a href="{% url 'create_ticket' %}" class="button">Supprimer le ticket</a>
+                        <a href="{% url 'delete_ticket' ticket_id=post.id %}" class="button">Supprimer le ticket</a>
 
                     </div>
                 {% endif %}

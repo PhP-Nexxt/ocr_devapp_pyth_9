@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+<title>{% block title %}Create Ticket{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
+
+      {% block content %}
+      <h2>Modifier une critique </h2>
+        <p>Vous etes en train de modifier une critique en réponse à ce ticket :</P>
+
+
+
+      <div class="ticket">
+        <h3>{{ ticket.title }}</h3>
+        <p>{{ ticket.description }}</p>
+        {% if ticket.image %}
+            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" class="ticket-image">
+        {% endif %}
+      
+
+
+    </div>
+
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+          <h2>Modifier la critique pour ce ticket</h2>
+        {{ review_form.as_p }}
+          <button type="submit">Modifier la critique</button>
+    </form>
+        
+      
+
+        
+       <!-- Retour vers dashboard -->
+       <div class="menu-item px-5"> 
+        <a href="{% url 'dashboard' %}" class="button">Annuler</a>
+      </div>
+
+      {% endblock %}
+  
