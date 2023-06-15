@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+<title>{% block title %}Create Ticket{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
+
+      {% block content %}
+        {% for myfollower in myfollowers %}
+            <p>{{ myfollower.followed_user.username }}</p>
+        
+        
+        {% endfor %}
+        <hr>
+        {% for myfollow in myfollows %}
+        <p>{{ myfollow.user.username }}</p>
+
+        
+        
+        {% endfor %}
+
+      {% endblock %}
