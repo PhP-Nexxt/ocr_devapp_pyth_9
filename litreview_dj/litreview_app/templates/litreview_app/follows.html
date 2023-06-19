@@ -4,13 +4,33 @@
 <title>{% block title %}Create Ticket{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
 
       {% block content %}
-        {% for myfollower in myfollowers %}
+
+    {% if error %}
+      <p style="color:red;">{{ message }}</p>
+    {% endif %}
+
+    {% if success %}
+      <p style="color:green">{{ message }}</p>
+    {% endif %}
+
+    <hr>
+      <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="username">
+        <input type="submit" value="Envoyer">
+
+
+      </form>
+      <hr> 
+      <h1>Mes Abonnés</h1>
+        {% for myfollower in myfollowers %} <!-- Mes Abonnés-->
             <p>{{ myfollower.followed_user.username }}</p>
         
         
         {% endfor %}
         <hr>
-        {% for myfollow in myfollows %}
+        <h1>Mes abonnements</h1>
+        {% for myfollow in myfollows %}<!-- Mes Abonnements-->
         <p>{{ myfollow.user.username }}</p>
 
         

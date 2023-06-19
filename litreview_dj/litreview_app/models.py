@@ -26,7 +26,7 @@ class UserFollows(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='following') #Celui qui est suivi
     followed_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='followed_by') #Celui qui suit
     
-    class Meta:
+    class Meta: #Abonnement Unique
         unique_together = ('user', 'followed_user')
        
 class Review(models.Model):

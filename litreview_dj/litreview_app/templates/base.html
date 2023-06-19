@@ -30,8 +30,11 @@
       </div>
 
       <div class="menu-item px-5">
-        <a href="{% url 'logout' %}" class="button">Se déconnecter</a>							
+        <a href="{% url 'logout' %}" class="button">Se déconnecter</a>		
+        <p> Bonjour {{ request.user.username }}</p>		<!--Affichage de la personne connecté-->			
       </div>
+
+      
 
     </div>
     <div id="content">
