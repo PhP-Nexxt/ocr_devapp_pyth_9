@@ -342,3 +342,29 @@ img.user-detail {
     margin : 30px;
 
 }
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd; /* Alternance Blanc et gris */
+  }
+
+  .follow_form {
+    display:flex;
+  }
+
+  .follow_form_username {
+    margin-right: 5px;
+    padding: 5px;
+    width: 80%;
+  }

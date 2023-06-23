@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from litreview_app.models import UserFollows
 from django.contrib.auth.models import User
@@ -12,7 +12,6 @@ def follows(request):
     myfollowers = UserFollows.objects.filter(user=request.user) #Mes abonnés (qui me suivent)
     myfollows = UserFollows.objects.filter(followed_user=request.user) #Les gens a qui je suis abonné
     
-    
     success = False
     error = False
     message = ""
@@ -22,8 +21,11 @@ def follows(request):
         print(username)
         user = User.objects.filter(username=username).first()
         print(user)
+        if user and user == request.user: #cas 1 moi meme
+            error = True
+            message = "Vous ne pouvez pas vous abonner à vous même"
         
-        if user: 
+        elif user: # User existe
             try:
                 #creation de l'object
                 userfollow = UserFollows(
@@ -36,7 +38,7 @@ def follows(request):
             except:
                 error = True
                 message = f"Vous etes déja abonné à l'utilisateur {username}"
-        else:
+        else: # user n'existe pas
             error = True
             message = f"L'utilisateur {username} n'existe pas"
     
@@ -52,3 +54,8 @@ def follows(request):
     
     return render(request, 'litreview_app/follows.html', context) 
 
+@login_required
+def unfollow(request, follow_id):
+    myfollow = UserFollows.objects.get(id=follow_id) #On recupere l'objet selon son Id
+    myfollow.delete() # On supprime
+    return redirect('follows')

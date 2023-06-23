@@ -13,28 +13,32 @@
       <p style="color:green">{{ message }}</p>
     {% endif %}
 
-    <hr>
-      <form action="" method="post">
+      <form class="follow_form" action="" method="post">
         {% csrf_token %}
-        <input type="text" name="username">
+        <input class="follow_form_username" type="text" name="username">
         <input type="submit" value="Envoyer">
 
 
       </form>
       <hr> 
       <h1>Mes Abonnés</h1>
+      <table style="width:100%">
         {% for myfollower in myfollowers %} <!-- Mes Abonnés-->
-            <p>{{ myfollower.followed_user.username }}</p>
-        
-        
+            
+            <tr>
+              <td><p>{{ myfollower.followed_user.username }}</p></td>
+            </tr>
         {% endfor %}
-        <hr>
-        <h1>Mes abonnements</h1>
-        {% for myfollow in myfollows %}<!-- Mes Abonnements-->
-        <p>{{ myfollow.user.username }}</p>
+      </table>
 
-        
-        
-        {% endfor %}
+        <h1>Mes abonnements</h1>
+        <table style="width:100%">
+        {% for myfollow in myfollows %}<!-- Mes Abonnements-->
+          <tr>
+            <td><p>{{ myfollow.user.username }}</p></td>
+            <td><a class='button' href="{% url 'unfollow' follow_id=myfollow.id %}">Se désabonner</a> </td> <!--Lien vers l'url de supression de mes abonnements-->
+          </tr>
+          {% endfor %}
+        </table>
 
       {% endblock %}
