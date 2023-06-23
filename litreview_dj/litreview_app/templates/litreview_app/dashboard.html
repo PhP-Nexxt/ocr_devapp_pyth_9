@@ -23,11 +23,23 @@
             {% for post  in posts %}
                 {% if post.content_type == 'REVIEW' %} <!-- Condition si review > Ticket puis review -->
                     <div class="review">
+
+                        <p>
+                            {% if post.user == request.user %} <!--Affichage du  créateur de la critique-->
+                            Vous avez publié une critique
+                            {% else %}
+                            {{post.user}} a publié une critique
+                            {% endif %}
+                        </p>
+
+                        <p>{{ post.time_created }}</p> <!--Affichage de la date de création de la critique-->
+
                         <h3>{{ post.headline }}</h3>
                         <p>{{ post.body }}</p>
                         <p>Rating: {{ post.rating }}</p>  <!-- Afficher le rating ici -->
                         
                         <div class="ticket">
+                            <p> Ticket : {{ post.user }}</p> <!-- Affichage auteur du ticket -->
                             <h4>{{ post.ticket.title }}</h4> <!-- lien entre les models Review et Tickets-->
                             <p>{{ post.ticket.description }}</p>
                             {% if post.ticket.image %}
@@ -37,6 +49,17 @@
                     </div>
                 {% elif post.content_type == 'TICKET' %} <!-- Condition si pas review > ticket uniquement -->
                     <div class="ticket">
+                        
+                        <p>
+                            {% if post.user == request.user %} <!--Affichage du demandeur du créateur du ticket-->
+                            Vous avez demandé une critique
+                            {% else %}
+                            {{post.user}} a demandé une critique
+                            {% endif %}
+                        </p>
+
+                        <p>{{ post.time_created }}</p> <!--Affichage de la date de création du ticket-->
+
                         <h3>{{ post.title }}</h3>
                         <p>{{ post.description }}</p>
                         {% if post.image %}
