@@ -10,34 +10,40 @@
 </head>
 
   <body>
+    <nav>
+
     <div id="header">
       <span class="logo">Litreview</span>
 
       <!--Deconnexion header Reste ajout d'une condition et container + Mise en forme-->
       
       <!--Mon flux-->
-      <div class="menu-item px-5">
-        <a href="{% url 'dashboard' %}" class="button">Flux</a>							
-      </div>
 
-      <!--Mes posts-->
-      <div class="menu-item px-5">
-        <a href="{% url 'posts' %}" class="button">Post</a>							
+      <div id="navigation"> <!--Crea de la div pour travailler le Css-->
+        
+          <a href="{% url 'dashboard' %}" class="button">Flux</a>							
+        
+  
+        <!--Mes posts-->
+        
+          <a href="{% url 'posts' %}" class="button">Post</a>							
+    
+          <a href="{% url 'follows' %}" class="button">Abonnement</a>							
+        
+          
+          <a href="{% url 'logout' %}" class="button">Se déconnecter - {{ request.user.username }}</a>		
+          
+          
+        
       </div>
-
-      <div class="menu-item px-5">
-        <a href="{% url 'follows' %}" class="button">follows</a>							
-      </div>
-
-      <div class="menu-item px-5">
-        <a href="{% url 'logout' %}" class="button">Se déconnecter</a>		
-        <p> Bonjour {{ request.user.username }}</p>		<!--Affichage de la personne connecté-->			
-      </div>
-
+      
       
 
     </div>
+    </nav>
+
     <div id="content">
+    
 
       {% block content %}
 

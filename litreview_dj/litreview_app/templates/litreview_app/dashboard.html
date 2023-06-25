@@ -23,7 +23,8 @@
             {% for post  in posts %}
                 {% if post.content_type == 'REVIEW' %} <!-- Condition si review > Ticket puis review -->
                     <div class="review">
-
+                        
+                        <time>{{ post.time_created }}</time> <!--Affichage de la date de création de la critique-->
                         <p>
                             {% if post.user == request.user %} <!--Affichage du  créateur de la critique-->
                             Vous avez publié une critique
@@ -32,11 +33,28 @@
                             {% endif %}
                         </p>
 
-                        <p>{{ post.time_created }}</p> <!--Affichage de la date de création de la critique-->
 
-                        <h3>{{ post.headline }}</h3>
+                            <!-- On Affiche le rating ici -->
+                        <p> <!-- On affiche plus le rating mais les etoile {{ post.rating }} -->
+                            
+                            {{ post.headline }} -
+                            
+                            {% if post.rating == 1 %}
+                            ★
+                            {% elif post.rating == 2 %}
+                            ★★
+                            {% elif post.rating == 3 %}
+                            ★★★
+                            {% elif post.rating == 4 %}
+                            ★★★★
+                            {% elif post.rating == 5 %}
+                            ★★★★★
+                            {% endif %}
+                        </p> 
+                        
                         <p>{{ post.body }}</p>
-                        <p>Rating: {{ post.rating }}</p>  <!-- Afficher le rating ici -->
+
+                        
                         
                         <div class="ticket">
                             <p> Ticket : {{ post.user }}</p> <!-- Affichage auteur du ticket -->

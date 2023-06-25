@@ -329,7 +329,7 @@ img.user-detail {
     margin-bottom: 0;
   }
 
-  .review {
+  .reviews {
     border-radius: 10px;
     border: 3px solid #aaa;
     margin: 10px;
@@ -337,6 +337,13 @@ img.user-detail {
     background: #dcdcdc;
 }
 
+.reviews time {
+    float: right;
+    font-style: italic;
+    padding: 15px;
+}
+
+/* # = Lien avec une classe */
 .btn-create {
     display :flex;
     margin : 30px;
@@ -368,3 +375,17 @@ table {
     padding: 5px;
     width: 80%;
   }
+
+/* # = Lien avec un ID */
+#navigation {
+    margin: 10 px;
+
+}
+
+/* # = Specifique au a */
+#navigation a {
+    padding: 10 px;
+    margin: 5 px;
+    transition-duration: 0.3s;
+    border-radius: 8px 8px 0px 0px;
+}
