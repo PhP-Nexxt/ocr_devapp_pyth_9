@@ -19,10 +19,10 @@
         
             
           <!-- Affichage Critique + Ticket -->
-          <div class="reviews">
+          <div>
             {% for post  in posts %}
                 {% if post.content_type == 'REVIEW' %} <!-- Condition si review > Ticket puis review -->
-                    <div class="review">
+                    <div class="reviews">
                         
                         <time>{{ post.time_created }}</time> <!--Affichage de la date de création de la critique-->
                         <p>
@@ -57,7 +57,7 @@
                         
                         
                         <div class="ticket">
-                            <p> Ticket : {{ post.user }}</p> <!-- Affichage auteur du ticket -->
+                            <p> Ticket : {{ post.ticket.user }}</p> <!-- Affichage auteur du ticket -->
                             <h4>{{ post.ticket.title }}</h4> <!-- lien entre les models Review et Tickets-->
                             <p>{{ post.ticket.description }}</p>
                             {% if post.ticket.image %}
@@ -96,18 +96,19 @@
                     </div>
                 {% endif %}
 
-            {% empty %}
-                <p>Aucune critique trouvée</p>
-            {% endfor %}
-          </div>
+                {% empty %}
+                    <p>Aucune critique trouvée</p>
+                {% endfor %}
+            </div>
 
           
           
 
-          <!-- Bouton de deconnection -->
+        <!-- Bouton de deconnection 
           <div class="menu-item px-5">
-              <a href="{% url 'logout' %}" class="button">Se déconnecter</a>	<!--Toutes les redirections se font sur ce format-->						
-          </div>
+              <a href="{% url 'logout' %}" class="button">Se déconnecter</a>							
+          </div> 
+        -->
 
       {% endblock %}
       

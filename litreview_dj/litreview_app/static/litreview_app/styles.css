@@ -43,6 +43,7 @@ ol {
     color:#fff;
     border-bottom:4px solid #1cdf78;
     overflow:auto;
+    width: 100%;
 }
 
 #header .logo {
@@ -376,9 +377,13 @@ table {
     width: 80%;
   }
 
+nav{
+display: flex;
+}
+
 /* # = Lien avec un ID */
 #navigation {
-    margin: 10 px;
+    text-align: right;
 
 }
 

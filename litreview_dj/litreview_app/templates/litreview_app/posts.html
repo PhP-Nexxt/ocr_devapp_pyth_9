@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
+
 <title>{% block title %}Dashboard{% endblock %}</title> <!--Utiliser block title et block content pour le reste des pages-->
 
       {% block content %} <!--Ajout de l'html de la page entre block content et endblock-->
         <h1>Posts</h1>
         
           <!-- Affichage Critique + Ticket -->
-          <div class="reviews">
+          <div>
             {% for post  in posts %}
                 {% if post.content_type == 'REVIEW' %} <!-- Condition si review > Ticket puis review -->
-                    <div class="review">
+                    <div class="reviews">
                         <h3>{{ post.headline }}</h3>
                         <p>{{ post.body }}</p>
                         <p>Rating: {{ post.rating }}</p>  <!-- Afficher le rating ici -->
@@ -46,9 +47,6 @@
                 <p>Aucune critique trouvée</p>
             {% endfor %}
           </div>
-
-          
-          
 
           <!-- Bouton de deconnection -->
           <div class="menu-item px-5">
