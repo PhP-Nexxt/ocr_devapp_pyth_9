@@ -31,13 +31,15 @@ def dashboard(request):
 
 
 @login_required
-def posts(request):  # mes postes uniquements
-    tickets = Ticket.objects.all().order_by(
-        "-id"
-    )  # Récupérer les tickets et les trier par ordre décroissant d'ID
+def posts(request):  # mes postes uniquements # --> Erreur on recupere tous les tickets  à reprendre juste les miens <--
+    
+    tickets = Ticket.objects.filter(user=request.user).order_by("-id")
+    # tickets = Ticket.objects.all().order_by( "-id")
+      # Récupérer les tickets et les trier par ordre décroissant d'ID
     tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
 
-    reviews = Review.objects.all()
+    reviews = Review.objects.filter(user=request.user).order_by("-id")
+    # reviews = Review.objects.all() # --> Idem ici <--
     reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
 
     # combine and sort the two types of posts

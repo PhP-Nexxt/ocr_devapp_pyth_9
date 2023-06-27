@@ -50,8 +50,6 @@ def create_ticket_and_review(request):
 
 
 login_required
-
-
 def update_ticket(request, ticket_id):  # Modification du ticket dashboard
     ticket = Ticket.objects.get(
         id=ticket_id
