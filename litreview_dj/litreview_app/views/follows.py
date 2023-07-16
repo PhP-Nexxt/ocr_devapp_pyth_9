@@ -36,9 +36,10 @@ def follows(request):
                 userfollow.save()  # Sauvegarde de l'objet
                 success = True
                 message = f"Vous etes désormais abonné à l'utilisateur {username}"
-            except:
+            except Exception as e:  # Definir l'exeption selon klake 8
                 error = True
                 message = f"Vous etes déja abonné à l'utilisateur {username}"
+                print(f"Une exception s'est produite : {e}")
         else:  # user n'existe pas
             error = True
             message = f"L'utilisateur {username} n'existe pas"

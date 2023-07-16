@@ -1,0 +1,3 @@
+[flake8]
+ignore = E226,E302,E41, F403, F401 #Erreurs Frequentes
+max-line-length = 160

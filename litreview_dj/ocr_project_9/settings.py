@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import os #Acces to ther os module and construct path(static to media)
+import os  # Acces to ther os module and construct path(static to media)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "litreview_app", #AddApp project9
-    "debug_toolbar", #Outil de debug
+    "litreview_app",  # AddApp project9
+    "debug_toolbar",  # Outil de debug
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware", #Ajout debug toolbar
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Ajout debug toolbar
 ]
 
 ROOT_URLCONF = "ocr_project_9.urls"
@@ -91,9 +92,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
 
@@ -102,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Paris"  # Choix du fuseau Horaire
 
 USE_I18N = True
 
@@ -113,8 +114,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") #Line fichier media
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #Lien css
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Line fichier media
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]  # Lien css
 
 
 # Default primary key field type
@@ -123,11 +126,11 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #Lien css
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_URL = 'login'
-LOGIN_URL = 'logout'
+LOGIN_URL = "login"
+LOGIN_URL = "logout"
 
-LOGIN_REDIRECT_URL = "login" #test
-LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_REDIRECT_URL = "login"  # test
+LOGIN_REDIRECT_URL = "dashboard"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
