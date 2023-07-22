@@ -32,7 +32,7 @@ Sur MacOs/Linux `source venv_litreview/bin/activate`
 Sur Windows:`venv_litereview\scripts\activate.bat`
 
 Installez ensuite les packages requis:
-pip install -r requierements.txt
+pip install -r requierement.txt
 
 Puis placez vous à la racine du projet (là ou se trouve le fichier manage.py), et effectuez les migrations:
 `python manage.py makemigrations`
